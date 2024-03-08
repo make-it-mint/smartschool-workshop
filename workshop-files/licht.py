@@ -4,7 +4,7 @@ from machine import Pin, ADC
 import network
 import utime
 import dht
-from mqtt_simple import MQTTClient
+from umqtt.simple import MQTTClient
 from einstellungen import *
 
 #SYSTEMEINSTELLUNGEN
