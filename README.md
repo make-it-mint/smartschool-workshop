@@ -142,5 +142,5 @@ Um zum Beispiel das `ding_vorlage.py` Skript des Repositories auszuführen
 #### Das wars, es kann losgehen.
 Alle weiteren Anleitungsschritte befinden sich in den Workshopunterlagen.
 
-[Downloadlink](https://nextcloud.mintorinnen.de/s/k7EJYLgK9JE7zzF)
+[Downloadlink](https://nextcloud.mintorinnen.de/s/4bByDmG4WDnMAmA)
 SmartSchool2024!
