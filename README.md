@@ -1,19 +1,20 @@
 # SmartSchool Workshop - Einführung IoT mit MQTT in Python und MicroPython
 
-Dieses Repository beinhaltet den Programmcode für den Workshop "Einführung IoT mit MQTT" von MAKE IT MINT.
+Dieses Repository beinhaltet den Programmcode für den SmartSchool Workshop
 
 ## Notwendige Hardware:
 - Broker: Raspberry Pi 3B+/4B/400 mit Raspbian Bullseye
 - Clients: Raspberry Pi Pico W oder andere WLAN-fähige Mikrocontroller, auf denen MicroPython installiert werden kann.([Übersicht](https://micropython.org/download/))
 - Steckplatinen, Sensoren, Aktuatoren und weitere Bauteile für ausgewählte Clientfunktionen
 
-## Notwendige Software:
-- [Thonny](https://thonny.org/): Eine Python Entwicklungsumgebung. Gibt es für Windows als portable Version(ohne Installation) und für Windows, Linux und Mac zum Installieren
+## Entwicklungsumgebung:
+In diesem Workshop wird die Online IDE Viper genutzt. https://viper-ide.org/# (Funktioniert nicht in Firefox)
 
 ## Optionale Software:
 - MyMQTT: Eine App zum Verbinden mit MQTT Brokern für Android & iOS. Kann zum Testen verwendet werden, alternativ kann auch eine Webseite wie [MQTT.Cool](https://testclient-cloud.mqtt.cool/) oder ein zweites IoT Gerät verwendet werden.
 - Mosquitto (Installationsanleitung weiter unten): ein OpenSource MQTT Broker, der lokal installiert und betrieben werden kann
 - node-red (Installationsanleitung weiter unten): eine Low-Code Entwicklungsumgebung. Programmieren mit Flows und Erstellung eines Online-Dashboards
+- die Viper IDE kann auch lokal gebaut und auf einem eigenen Server gehostet werden (https://github.com/vshymanskyy/ViperIDE)
 
 Für den Broker wird hier eine Raspberry Pi 4B, mit Raspbian Bullseye installiert, verwendet.  
 Willst du keinen eigenen Broker einichten, kann auch ein öffentlicher Broker verwendet werden, wie ihn beispielsweise HiveMQ [hier](https://www.hivemq.com/public-mqtt-broker/) zur Verfügung stellt. Über Datenschutzrichtlinien im Vorfeld bitte selbst informieren.
@@ -40,40 +41,23 @@ Jetzt warte en paar Sekunden und **_plopp_**, das Laufwerk sollte verschwunden s
 
 Benutzt du einen anderen Mikrocontroller, befolge bitte die Anleitung zu deiner Hardware auf [dieser](https://micropython.org/download/) Seite.
 
-## Mikrocontroller - Verbinden in Thonny
+## Mikrocontroller - Verbinden in Viper
 
-Auf den Mikrocontrollern müssen ein paar Skripte kopiert werden, damit sie für den Workshop nutzbar sind. Das muss einmalig für jeden Mikrocontroller gemacht werden. Dafür wird die Thonny Entwicklungsumgebung benötigt. Thonny hat den großen Vorteil, dass man mit ihr direkt auf dem Mikrocontroller programmieren kann. Es muss keine weitere Software hierfür installiert werden. Der Mikrocontroller mit MicroPython muss lediglich per USB Kabel an den Computer angeschlossen werden.
-
-Ist Thonny geöffnet und der Mikrocontroller verbunden, klicke mit der linken Maustaste unten rechts in Thonny auf das Feld mit dem Text "Lokales Python 3". Der Text steht wirklichganz unten rechts auf grauem Untergrund. Wird er angeklickt, öffnet sich ein Menü mit mehreren Optionen zur Auswahl. Wähle die Option mit "MicroPython" aus. Sind mehrere verfügbar, wähle die oerste, es ist aber eigentlich egal.
-
-In der Konsole sollte jetzt der folgende Text angezeigt werden:  
-```
-MicroPython v1.25.0 on 2025-04-15; Raspberry Pi Pico W with RP2040
-Type "help()" for more information.
->>> 
-```
-Siehst du diesen Text nicht, oder kannst kein MicroPython Gerät in Thonny auswählen, wird dein Mikrocontroller nicht erkannt. Versuche noch einmal die Firmware neu zu installieren.
+Verbinde den Mikrocontroller mit dem Computer und klicke oben rechts in der Viper IDE auf das USB Symbol. Wähle aus der Liste, die sich öffnet den Mikrocontroller aus. Auf der linken Seite sollte nun ein Menü mit deinen Dateien erscheinen.
 
 ## Code auf dem Mikrocontroller kopieren
- Öffne alle Dateien des "microcontroller-files" Ordners in Thonny. Dabei sollte es sich um die folgenden Dateien handeln:  
- - `umqtt/simple.py` -> MQTT Bibliothek
- - `umqtt/robust.py`  -> MQTT Bibliothek
- - `iot_settings.py` -> Python Datei mit persönlichen Einstellungen
- - `Thing.py` -> Python Datei, die die Verbdindung mit einem Broker und dem Internet automatisch übernimmt
+- Erstelle die folgenden Dateien und kopiere die Inhalte aus den gleichnamigen Dateien diese Repositories in die Dateien:
+  - `iot_settings.py` -> Python Datei mit persönlichen Einstellungen
+  - `Thing.py` -> Python Datei, die die Verbdindung mit einem Broker und dem Internet automatisch übernimmt
+  - `things_collection.py` -> [Optional] beinhaltet Beispielprogramme und benötigt noch die folgenden in diesem Repository beinhalteten Bibliotheken, die genauso erstellt werden müssen:
+    - `mfrc522.py`
 
-Sind die Dateien in Thonny geöffnet, können sie durch die "Speichern unter" Funktion direkt auf dem Mikrocontroller gespeichert werden.
 
-- Wähle die Datei `umqtt/simple.py` aus.
-- Zum Speichern auf dem Mikrocontroller, Wähle in Thonny oben "Datei" aus und dann "Speichern unter".
-- Jetzt kannst du in einem Fenster "Dieser Computer" oder "RP2040 Gerät" auswählen. "RP2040" ist dein Mikrocontroller. Wähle ihn aus.
-- Es öffnet sich ein neues Menü. Das ist der Speicher deines Mikrocontrollers. Die Dateien `simple.py` und `robust.py` müssen in einem Ordner mit dem Namen `umqtt` gespeichert werden
-- Um in dem Menü einen neuen Ordner anzulegen, klicke mit der rechten Maustaste in den weißen Fensterbereich.
-- Wähle "neuer Ordner" aus und erstelle einen Ordner mit dem Namen `umqtt` 
-- Doppelklicke nun mit der linken Maustaste auf den Ordner und speichere die Datei in ihm. gib ihr den Namen `simple.py`
+- Erstelle im File Manager Menü den Ordner `umqtt` 
+  - innerhalb des Ordners die folgenden Dateien und kopiere die Inhalte aus den gleichnamigen Dateien diese Repositories in die Dateien:
+  - `simple.py` -> MQTT Bibliothek
+  - `robust.py`  -> MQTT Bibliothek
 
-Speichere die `umqtt/robust.py` Datei ebenfalls in dem Ordner.
-
-Die `iot_settings.py` und `Thing.py` Datei werden direkt im Hauptordner gespeichert.
 
 Damit ist der Mikrocontroller für den Workshop vorbereitet.
 
