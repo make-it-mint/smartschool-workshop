@@ -46,7 +46,7 @@ Benutzt du einen anderen Mikrocontroller, befolge bitte die Anleitung zu deiner 
 Verbinde den Mikrocontroller mit dem Computer und klicke oben rechts in der Viper IDE auf das USB Symbol. Wähle aus der Liste, die sich öffnet den Mikrocontroller aus. Auf der linken Seite sollte nun ein Menü mit deinen Dateien erscheinen.
 
 ## Code auf dem Mikrocontroller kopieren
-- Erstelle die folgenden Dateien und kopiere die Inhalte aus den gleichnamigen Dateien diese Repositories in die Dateien:
+- Erstelle die folgenden Dateien und kopiere die Inhalte aus den gleichnamigen Dateien diese Repositories auf den Mikrocontroller:
   - `iot_settings.py` -> Python Datei mit persönlichen Einstellungen
   - `Thing.py` -> Python Datei, die die Verbdindung mit einem Broker und dem Internet automatisch übernimmt
   - `things_collection.py` -> [Optional] beinhaltet Beispielprogramme und benötigt noch die folgenden in diesem Repository beinhalteten Bibliotheken, die genauso erstellt werden müssen:
