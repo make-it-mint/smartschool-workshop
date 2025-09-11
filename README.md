@@ -50,7 +50,9 @@ Verbinde den Mikrocontroller mit dem Computer und klicke oben rechts in der Vipe
   - `iot_settings.py` -> Python Datei mit persönlichen Einstellungen
   - `Thing.py` -> Python Datei, die die Verbdindung mit einem Broker und dem Internet automatisch übernimmt
   - `things_collection.py` -> [Optional] beinhaltet Beispielprogramme und benötigt noch die folgenden in diesem Repository beinhalteten Bibliotheken, die genauso erstellt werden müssen:
-    - `mfrc522.py`
+    - `mfrc522.py` (RFID Interface RC522)
+    - `lcd_api.py` (LCD Display)
+    - `machine_i2c_lcd.py` (LCD Display)
 
 
 - Erstelle im File Manager Menü den Ordner `umqtt` 

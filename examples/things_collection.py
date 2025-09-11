@@ -1,6 +1,8 @@
-from machine import Pin
+from machine import Pin, I2C
 from utime import sleep
 from mfrc522 import MFRC522
+from machine_i2c_lcd import I2cLcd
+import math
 
 
 
@@ -77,11 +79,34 @@ def readLDR():
 def buzz():
     pass
 
-def writeLCD():
-    pass
+#https://www.elektronik-kompendium.de/sites/raspberry-pi/2612251.htm
+def writeLCD(sda_pin=20, sdc_pin=21, text="", delay = True):
+    # Initialisierung I2C
+    i2c = I2C(0, sda=Pin(sda_pin), scl=Pin(sdc_pin), freq=100000)
+    # Initialisierung LCD über I2C
+    lcd = I2cLcd(i2c, 0x27, 2, 16)
 
-def readLCD():
-    pass
+    # Display-Zeilen ausgeben    
+    current_character = 0
+    zeile = 0
+    while current_character < len(text):
+        if current_character > 15:
+            zeile = 1
+        if current_character%16 == 0 and current_character>0:
+            if not delay:
+                sleep(2)
+            lcd.clear()
+            lcd.putstr(text[current_character-16:current_character])
+        lcd.move_to(current_character%16, zeile)
+        lcd.putstr(text[current_character])
+        if delay:
+            sleep(.1)
+        current_character += 1
+    sleep(2)
+    lcd.clear()
+    lcd.backlight_off()
+
+
 
 def controlStepper():
     pass
@@ -110,5 +135,5 @@ def writeIR():
 
 if __name__ == "__main__":
     while True:
-        print(sendKeyPadMessage())
+        print(writeLCD(text= "Moin, wo geht denn die Party heute Abend ab in Bremen?"))
         sleep(1)
