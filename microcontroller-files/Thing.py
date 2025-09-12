@@ -67,13 +67,13 @@ class Thing:
         if topic.decode("utf-8") in self.SUBSCRIBE_LIST:
             try:
                 content = content.decode("utf-8")
-                self.selectAction(topic.decode("utf-8"), content)
+                self.selectAction(topic.decode("utf-8"), content, self.client)
             except Exception as e:
                 print(e)
 
     #if decoding was successful, depending on the received message and topic, an action can be selected
     #CHANGE THIS METHOD IN YOUR CUSTOM CLASS
-    def selectAction(self, topic, content):
+    def selectAction(self, topic, content, client):
         #choose your action depending on the received topic
         if topic == CLIENT_ID:
             #call your custom method
@@ -95,23 +95,22 @@ class Thing:
     #this generally happens after no messages were sent or received during the specified timeout.
     def start(self):
         #connect to the Broker
-        client = self.setupConnection(self.STATUS_LED)
+        self.client = self.setupConnection(self.STATUS_LED)
         while True:
             print("connection successful")
             while True:
                 try:
-                    client.check_msg() # none blocking checking for messages on every loop
-                    self.publish(client) # publish on every loop
+                    self.client.check_msg() # none blocking checking for messages on every loop
+                    self.publish(self.client) # publish on every loop
                     utime.sleep_ms(self.LOOP_PAUSE_IN_MS) #pause for specified duration
                 except Exception as e:
                     print(f"Broker connection terminated: {e}") #if broker should disconnect
                     break
                 
             print("reconnecting Broker")
-            client = self.connectClient()#automatically isconnects if Broker does not connect
+            self.client = self.connectClient()#automatically isconnects if Broker does not connect
 
             
-
 
 
 

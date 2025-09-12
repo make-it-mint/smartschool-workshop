@@ -9,7 +9,7 @@ class CustomThing(Thing):
     #################################################### This is where your custom code goes #######################################
     
     #overriding the selectAction method to react to the new topic and print the value
-    def selectAction(self, topic, content):
+    def selectAction(self, topic, content, client):
         if topic == "my_test":
             print(f"Topic 1: {content}")
         elif topic == "test2":
