@@ -1,7 +1,8 @@
-from machine import Pin, I2C
-from utime import sleep
+from machine import Pin, I2C, PWM
+from utime import sleep, sleep_us, ticks_us
 from mfrc522 import MFRC522
 from machine_i2c_lcd import I2cLcd
+import dht
 import math
 
 
@@ -69,16 +70,6 @@ def readRFID(spi_id=0,sck=2,miso=4,mosi=3,cs=1,rst=0):
         sleep(.2)
 
 
-
-def readDTH11():
-    pass
-
-def readLDR():
-    pass
-
-def buzz():
-    pass
-
 #https://www.elektronik-kompendium.de/sites/raspberry-pi/2612251.htm
 def writeLCD(sda_pin=20, sdc_pin=21, text="", delay = True):
     # Initialisierung I2C
@@ -107,18 +98,88 @@ def writeLCD(sda_pin=20, sdc_pin=21, text="", delay = True):
     lcd.backlight_off()
 
 
+#https://www.elektronik-kompendium.de/sites/raspberry-pi/2703031.htm
+def readDTH22(data_pin=15, get_temp=True, get_hum=True):
+    sensor = dht.DHT22(Pin(data_pin, Pin.IN, Pin.PULL_UP))
+    sensor.measure()
+    if get_temp and not get_hum:
+        return sensor.temperature()
+    elif get_temp and get_hum:
+        return sensor.temperature(),sensor.humidity()
+    elif not get_temp and get_hum:
+        return sensor.humidity()
+    elif not get_temp and not get_hum:
+        return None
 
-def controlStepper():
+def readLDR():
     pass
 
-def controlMotorDC():
+def buzz():
     pass
+
+
+def controlMotorDC1():
+    in1= Pin(16, Pin.OUT)
+    in2= Pin(17, Pin.OUT)
+    in1.on()
+    sleep(3)
+    in1.off()
+    sleep(1)
+    in2.on()
+    sleep(3)
+    in2.off()
+    pass
+
+def controlMotorDC(in1_pin=16, in2_pin=17, speed=100, direction=1):
+    frequency = 1000
+    #duty_cycle (0-65535)
+    lower_bound = 65535*0.3 #30%
+    duty_cycle_multiplier =(65535-lower_bound)/100
+    in1= PWM(Pin(in1_pin))
+    in2= PWM(Pin(in2_pin))
+    in1.freq(frequency)
+    in2.freq(frequency)
+    if direction == 1:
+        in1.duty_u16(int(speed*duty_cycle_multiplier+lower_bound))
+        in2.duty_u16(0)
+    elif direction == 0:
+        in1.duty_u16(0)
+        in2.duty_u16(0)
+    elif direction == -1:
+        in1.duty_u16(0)
+        in2.duty_u16(int(speed*duty_cycle_multiplier+lower_bound))
+    
+    
 
 def readMotionSensor():
     pass
 
-def readUltrasound():
-    pass
+
+#https://www.elektronik-kompendium.de/sites/raspberry-pi/2701131.htm
+def readUltrasound(echo_pin=17, trig_pin=16, v_schall=343.2):
+    trigger = Pin(trig_pin, Pin.OUT)
+    echo = Pin(echo_pin, Pin.IN)
+
+    #Impuls senden
+    trigger.low()
+    sleep_us(2)
+    trigger.high()
+    sleep_us(5)
+    trigger.low()
+    
+    # Zeitmessungen
+    while echo.value() == 0:
+       signal_off = ticks_us()
+    while echo.value() == 1:         
+       signal_on = ticks_us()
+    # Vergangene Zeit ermitteln
+    dauer = signal_on - signal_off
+    # Abstand/Entfernung ermitteln
+    # Entfernung über die Schallgeschwindigkeit (343.2 m/s bei 20 °C) berechnen
+    # Durch 2 teilen, wegen Hin- und Rückweg. Durch 1.000 teilen, wegen Mikrosekunden
+    # Multiplizieren mit 100 für Centimeret
+    abstand = dauer * v_schall*100 / (2*1000000)
+    return abstand
 
 def readServo():
     pass
@@ -134,6 +195,8 @@ def writeIR():
 
 
 if __name__ == "__main__":
-    while True:
-        print(writeLCD(text= "Moin, wo geht denn die Party heute Abend ab in Bremen?"))
-        sleep(1)
+    for i in range(0,101,20):
+        print(i)
+        controlMotorDC(direction = 1, speed=i)
+        sleep(.5)
+    controlMotorDC(direction = 0, speed=5)
