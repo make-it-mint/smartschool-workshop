@@ -1,9 +1,10 @@
-from machine import Pin, I2C, PWM
+from machine import Pin, I2C, PWM, ADC
 from utime import sleep, sleep_us, ticks_us
 from mfrc522 import MFRC522
 from machine_i2c_lcd import I2cLcd
 import dht
 import math
+import neopixel
 
 
 
@@ -111,24 +112,16 @@ def readDTH22(data_pin=15, get_temp=True, get_hum=True):
     elif not get_temp and not get_hum:
         return None
 
-def readLDR():
-    pass
+
+#https://www.elektronik-kompendium.de/sites/raspberry-pi/2612221.htm
+def readLDR(ldr_pin=26):
+    ldr = ADC(ldr_pin)
+    max_brightness=65535
+    return round(ldr.read_u16()/max_brightness,2)
 
 def buzz():
     pass
 
-
-def controlMotorDC1():
-    in1= Pin(16, Pin.OUT)
-    in2= Pin(17, Pin.OUT)
-    in1.on()
-    sleep(3)
-    in1.off()
-    sleep(1)
-    in2.on()
-    sleep(3)
-    in2.off()
-    pass
 
 def controlMotorDC(in1_pin=16, in2_pin=17, speed=100, direction=1):
     frequency = 1000
@@ -151,9 +144,22 @@ def controlMotorDC(in1_pin=16, in2_pin=17, speed=100, direction=1):
     
     
 
-def readMotionSensor():
-    pass
+def readMotionSensor(pir_pin=16):
+    sensor=Pin(pir_pin, Pin.IN, Pin.PULL_DOWN)
+    if sensor.value():
+        return True
+    else:
+        return False
 
+def readMotionSensor1(pir_pin=16):
+    sensor=Pin(pir_pin, Pin.IN)
+    while True:
+        sleep(2)
+        print(sensor.value())
+        if sensor.value():
+            print("Movement")
+        else:
+            print("Nothing")
 
 #https://www.elektronik-kompendium.de/sites/raspberry-pi/2701131.htm
 def readUltrasound(echo_pin=17, trig_pin=16, v_schall=343.2):
@@ -181,22 +187,40 @@ def readUltrasound(echo_pin=17, trig_pin=16, v_schall=343.2):
     abstand = dauer * v_schall*100 / (2*1000000)
     return abstand
 
-def readServo():
+#https://www.elektronik-kompendium.de/sites/raspberry-pi/2706231.htm
+def writeServo(data_pin=16, position_grad=90):
+    servo = PWM(Pin(data_pin))
+    servo.freq(50)
+    if position_grad > 180 or position_grad < 0:
+        servo.deinit()
+        return False
+    else:
+        position = int(math.ceil(2000000*position_grad/180 + 500000))
+        servo.duty_ns(position)
+        sleep(2)
+        return True
     pass
 
-def writeServo():
-    pass
-
-def readIR():
-    pass
-
-def writeIR():
-    pass
+#https://www.elektronik-kompendium.de/sites/raspberry-pi/2802011.htm
+def readIR(data_pin=16):
+    sensor = Pin(data_pin, Pin.IN, Pin.PULL_UP)
+    #0 = objekt erfasst, 1 = kein Objekt
+    return sensor.value()
 
 
+def pixelstick(data_pin=16):
+    np = neopixel.NeoPixel(Pin(data_pin), 8)
+    np[0] = (255, 0, 0)
+    np.write()
+
+#https://docs.sunfounder.com/projects/umsk/de/latest/04_pi_pico/pico_lesson02_soil_moisture.html
+def readGroundMoisture(data_pin=26):
+    sensor = ADC(data_pin)
+    #65535 is der Maximalwert für 16bit integer
+    return round(sensor.read_u16()/65535,2)
+    
 if __name__ == "__main__":
-    for i in range(0,101,20):
-        print(i)
-        controlMotorDC(direction = 1, speed=i)
-        sleep(.5)
-    controlMotorDC(direction = 0, speed=5)
+    while True:
+        print(readGroundMoisture())
+        sleep(.2)
+        
