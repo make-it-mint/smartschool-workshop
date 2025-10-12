@@ -1,7 +1,6 @@
 from machine import Pin, I2C, PWM, ADC
 from utime import sleep, sleep_us, ticks_us
-from mfrc522 import MFRC522
-from machine_i2c_lcd import I2cLcd
+#from machine_i2c_lcd import I2cLcd
 import dht
 import math
 import neopixel
@@ -208,9 +207,10 @@ def readIR(data_pin=16):
     return sensor.value()
 
 
-def pixelstick(data_pin=16):
-    np = neopixel.NeoPixel(Pin(data_pin), 8)
-    np[0] = (255, 0, 0)
+def pixelstick(data_pin=28,pixel=[[0,0,0]]):
+    np = neopixel.NeoPixel(Pin(data_pin),len(pixel))
+    for i,p in enumerate(pixel):
+        np[i] = p
     np.write()
 
 #https://docs.sunfounder.com/projects/umsk/de/latest/04_pi_pico/pico_lesson02_soil_moisture.html
@@ -221,6 +221,6 @@ def readGroundMoisture(data_pin=26):
     
 if __name__ == "__main__":
     while True:
-        print(readGroundMoisture())
+        pixelstick(pixel=[[255,0,0],[255,0,0],[255,0,0],[255,0,0],[255,0,0],[255,0,0],[255,0,0],[0,0,0]])
         sleep(.2)
         
