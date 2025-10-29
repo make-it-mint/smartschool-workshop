@@ -1,6 +1,6 @@
 from machine import Pin, I2C, PWM, ADC
 from utime import sleep, sleep_us, ticks_us
-#from machine_i2c_lcd import I2cLcd
+from machine_i2c_lcd import I2cLcd
 import dht
 import math
 import neopixel
@@ -150,16 +150,6 @@ def readMotionSensor(pir_pin=16):
     else:
         return False
 
-def readMotionSensor1(pir_pin=16):
-    sensor=Pin(pir_pin, Pin.IN)
-    while True:
-        sleep(2)
-        print(sensor.value())
-        if sensor.value():
-            print("Movement")
-        else:
-            print("Nothing")
-
 #https://www.elektronik-kompendium.de/sites/raspberry-pi/2701131.htm
 def readUltrasound(echo_pin=17, trig_pin=16, v_schall=343.2):
     trigger = Pin(trig_pin, Pin.OUT)
@@ -218,9 +208,18 @@ def readGroundMoisture(data_pin=26):
     sensor = ADC(data_pin)
     #65535 is der Maximalwert für 16bit integer
     return round(sensor.read_u16()/65535,2)
+
+ #https://docs.sunfounder.com/projects/umsk/de/latest/04_pi_pico/pico_lesson02_soil_moisture.html
+def controlRelais(relais_pin=16, set_to=True):
+    relais = Pin(relais_pin, Pin.OUT)
+    if set_to == True:
+        relais.on()
+    elif set_to == False:
+        relais.off()
+    return set_to
     
 if __name__ == "__main__":
     while True:
-        pixelstick(pixel=[[255,0,0],[255,0,0],[255,0,0],[255,0,0],[255,0,0],[255,0,0],[255,0,0],[0,0,0]])
-        sleep(.2)
+        print(controlLed())
+        sleep(3)
         
