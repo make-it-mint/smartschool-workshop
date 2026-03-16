@@ -1,0 +1,987 @@
+[
+    {
+        "id": "5498495b1da56f41",
+        "type": "tab",
+        "label": "Demo Dashboard",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "08ad0eb4dfd1d54c",
+        "type": "tab",
+        "label": "Admin",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ca267a0cd7e3f2aa",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mosquitto",
+        "port": "1883",
+        "tls": "",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "5",
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "7d59cf1b73ef7268",
+        "type": "ui-base",
+        "name": "Smartschool",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "dashboard",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "72afd472c566c53f",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#ffffff",
+            "primary": "#0094CE",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#cccccc"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "e6b1cddeac68b5d1",
+        "type": "ui-page",
+        "name": "Demo",
+        "ui": "7d59cf1b73ef7268",
+        "path": "/demo",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "72afd472c566c53f",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": true,
+        "disabled": false
+    },
+    {
+        "id": "ed97e63fda72a3b2",
+        "type": "ui-group",
+        "name": "functions",
+        "page": "e6b1cddeac68b5d1",
+        "width": 6,
+        "height": "5",
+        "order": 1,
+        "showTitle": false,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "04f6417f782a8457",
+        "type": "ui-group",
+        "name": "topics",
+        "page": "e6b1cddeac68b5d1",
+        "width": "6",
+        "height": "5",
+        "order": 2,
+        "showTitle": false,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "ebeba7c1f7f343ad",
+        "type": "ui-page",
+        "name": "Admin",
+        "ui": "7d59cf1b73ef7268",
+        "path": "/admin",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "72afd472c566c53f",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 2,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "c69f6a2e6c13e913",
+        "type": "ui-switch",
+        "z": "5498495b1da56f41",
+        "name": "led_status",
+        "label": "LED Status",
+        "group": "ed97e63fda72a3b2",
+        "order": 1,
+        "width": "3",
+        "height": "1",
+        "passthru": false,
+        "decouple": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-left",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 370,
+        "y": 120,
+        "wires": [
+            [
+                "9bc37bf7a10e63bd"
+            ]
+        ]
+    },
+    {
+        "id": "9bc37bf7a10e63bd",
+        "type": "mqtt out",
+        "z": "5498495b1da56f41",
+        "name": "",
+        "topic": "demo/led_control",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "ca267a0cd7e3f2aa",
+        "x": 590,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "af12e9c9f0144f85",
+        "type": "mqtt in",
+        "z": "5498495b1da56f41",
+        "name": "",
+        "topic": "demo//ed_state",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "ca267a0cd7e3f2aa",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 120,
+        "wires": [
+            [
+                "c69f6a2e6c13e913"
+            ]
+        ]
+    },
+    {
+        "id": "8b5b8f11a38975a8",
+        "type": "ui-text-input",
+        "z": "5498495b1da56f41",
+        "group": "ed97e63fda72a3b2",
+        "name": "lcd_input",
+        "label": "Text for LCD",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "topic": "topic",
+        "topicType": "msg",
+        "mode": "text",
+        "tooltip": "Press Enter to send",
+        "delay": 300,
+        "passthru": true,
+        "sendOnDelay": false,
+        "sendOnBlur": false,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": true,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 160,
+        "y": 200,
+        "wires": [
+            [
+                "29725ff97915b181"
+            ]
+        ]
+    },
+    {
+        "id": "29725ff97915b181",
+        "type": "mqtt out",
+        "z": "5498495b1da56f41",
+        "name": "",
+        "topic": "demo/lcd_write",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "ca267a0cd7e3f2aa",
+        "x": 360,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "d06361970c22cbce",
+        "type": "ui-text",
+        "z": "5498495b1da56f41",
+        "group": "ed97e63fda72a3b2",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "lcd_output",
+        "label": "LCD Text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 370,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "5e211675d0602460",
+        "type": "mqtt in",
+        "z": "5498495b1da56f41",
+        "name": "",
+        "topic": "demo/lcd_write",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "ca267a0cd7e3f2aa",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 260,
+        "wires": [
+            [
+                "d06361970c22cbce"
+            ]
+        ]
+    },
+    {
+        "id": "7fe71f50604230d1",
+        "type": "mqtt in",
+        "z": "5498495b1da56f41",
+        "name": "",
+        "topic": "demo/keypad",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "ca267a0cd7e3f2aa",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 340,
+        "wires": [
+            [
+                "b3e78249c7b3dc2e"
+            ]
+        ]
+    },
+    {
+        "id": "b3e78249c7b3dc2e",
+        "type": "ui-text",
+        "z": "5498495b1da56f41",
+        "group": "ed97e63fda72a3b2",
+        "order": 7,
+        "width": "3",
+        "height": "1",
+        "name": "kypad_message",
+        "label": "Keypad Message",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 400,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "87a1e0d61937fa3c",
+        "type": "mqtt in",
+        "z": "5498495b1da56f41",
+        "name": "",
+        "topic": "demo/rfid",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "ca267a0cd7e3f2aa",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 420,
+        "wires": [
+            [
+                "85460d4779298f27"
+            ]
+        ]
+    },
+    {
+        "id": "85460d4779298f27",
+        "type": "ui-text",
+        "z": "5498495b1da56f41",
+        "group": "ed97e63fda72a3b2",
+        "order": 6,
+        "width": "3",
+        "height": "1",
+        "name": "rfid_read",
+        "label": "RFID",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 380,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "d3fcad2955919715",
+        "type": "mqtt in",
+        "z": "5498495b1da56f41",
+        "name": "",
+        "topic": "demo/dht22/temp",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "ca267a0cd7e3f2aa",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 480,
+        "wires": [
+            [
+                "a49ee09eaec753c5"
+            ]
+        ]
+    },
+    {
+        "id": "e5cc9a06b5e44565",
+        "type": "mqtt in",
+        "z": "5498495b1da56f41",
+        "name": "",
+        "topic": "demo/dht22/hum",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "ca267a0cd7e3f2aa",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 540,
+        "wires": [
+            [
+                "1651bd52df391db2"
+            ]
+        ]
+    },
+    {
+        "id": "a49ee09eaec753c5",
+        "type": "ui-gauge",
+        "z": "5498495b1da56f41",
+        "name": "dht_temp",
+        "group": "ed97e63fda72a3b2",
+        "order": 4,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Temperature",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "bottom-left",
+        "units": "°C",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#1c71d8",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "18",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "28",
+                "color": "#ffa348",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "33",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "50",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 400,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1651bd52df391db2",
+        "type": "ui-gauge",
+        "z": "5498495b1da56f41",
+        "name": "dht_hum",
+        "group": "ed97e63fda72a3b2",
+        "order": 3,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "1",
+        "height": "3",
+        "gtype": "gauge-tank",
+        "gstyle": "needle",
+        "title": "Humidity",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#a8f5ff",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "15",
+                "color": "#55dbec",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "35",
+                "color": "#53b4fd",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "50",
+                "color": "#2397d1",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 400,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "027d4d8d9beccf0f",
+        "type": "mqtt in",
+        "z": "5498495b1da56f41",
+        "name": "",
+        "topic": "demo/ldr",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "ca267a0cd7e3f2aa",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 600,
+        "wires": [
+            [
+                "ee8ccddb19fd5915"
+            ]
+        ]
+    },
+    {
+        "id": "ee8ccddb19fd5915",
+        "type": "ui-gauge",
+        "z": "5498495b1da56f41",
+        "name": "ldr",
+        "group": "ed97e63fda72a3b2",
+        "order": 5,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "2",
+        "height": 3,
+        "gtype": "gauge-34",
+        "gstyle": "needle",
+        "title": "Illumination",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "bottom-left",
+        "units": " ",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#000000",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "0.6",
+                "color": "#f9f06b",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "1",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 390,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ae0d23e40707afc6",
+        "type": "ui-button-group",
+        "z": "5498495b1da56f41",
+        "name": "motor_control",
+        "group": "ed97e63fda72a3b2",
+        "order": 2,
+        "width": "3",
+        "height": 1,
+        "label": "Motor Controller",
+        "className": "",
+        "rounded": false,
+        "useThemeColors": true,
+        "passthru": false,
+        "options": [
+            {
+                "label": "Left",
+                "icon": "",
+                "value": "-1",
+                "valueType": "num",
+                "color": "#009933"
+            },
+            {
+                "label": "Stop",
+                "icon": "",
+                "value": "0",
+                "valueType": "num",
+                "color": "#999999"
+            },
+            {
+                "label": "Right",
+                "icon": "",
+                "value": "1",
+                "valueType": "num",
+                "color": "#ff6666"
+            }
+        ],
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 360,
+        "y": 680,
+        "wires": [
+            [
+                "d682f2e6f77eee27"
+            ]
+        ]
+    },
+    {
+        "id": "d682f2e6f77eee27",
+        "type": "mqtt out",
+        "z": "5498495b1da56f41",
+        "name": "",
+        "topic": "demo/motor_control",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "ca267a0cd7e3f2aa",
+        "x": 560,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "18218ae960706749",
+        "type": "ui-markdown",
+        "z": "5498495b1da56f41",
+        "group": "04f6417f782a8457",
+        "name": "",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "content": "## Topics\n**LED Status** </br>-> **Topic** (publish): `demo/led_control`\n| **Message**:\n-1 = toggle /\n 0 = off /\n 1 = on\n</br>-> **Topic** (subscribe): `demo/led_state`\n| **Message**:\ntrue = LED is on /\nfalse = LED is off\n\n**Motor Controller** </br>->\n**Topic** (publish): `demo/motor_control`\n| **Message**:\n-1 = turn left /\n 0 = stop /\n 1 = turn right\n\n**DHT22 Sensor (Temperature/Humidity)**\n</br>->**Topic** (subscribe): `demo/dht22/hum`\n| **Message**: 0-100\n</br>->**Topic** (subscribe): `demo/dht22/temp`\n| **Message**: number\n\n**LDR** (Illumination)\n</br>->**Topic** (subscribe): `demo/ldr`\n| **Message** : 0-1\n\n**RFID**\n</br>->**Topic** (subscribe): `demo/rfid`\n| **Message**: string with Chip ID\n\n**Keypad Message**\n</br>->**Topic** (subscribe): `demo/keypad`\n| **Message**: string\n\n**LCD Text**\n</br>->**Topic** (subscribe): `demo/lcd_write`\n| **Message**: string\n\n**Motion Sensor**\n</br>->**Topic** (subscribe): `demo/pir`\n| **Message**: 0 = no motion/ 1 = motion\n\n**Ultrasound Sensor**\n</br>->**Topic** (subscribe): `demo/ultrasound`\n| **Message**: number\n\n**Servo Position**\n</br>->**Topic** (pulish): `demo/servo_control`\n| **Message**: 0-180 integer",
+        "className": "",
+        "x": 930,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3f13d9f8e01037a7",
+        "type": "ui-gauge",
+        "z": "5498495b1da56f41",
+        "name": "motion_sensor",
+        "group": "ed97e63fda72a3b2",
+        "order": 10,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": "3",
+        "gtype": "gauge-tile",
+        "gstyle": "needle",
+        "title": "Motion Sensor (PIR)",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ed333b",
+                "text": "???",
+                "textType": "str"
+            },
+            {
+                "from": "1",
+                "color": "#5cd65c",
+                "text": "!!!",
+                "textType": "str"
+            }
+        ],
+        "min": 0,
+        "max": "1",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 420,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "662ea2a1b7a753af",
+        "type": "mqtt in",
+        "z": "5498495b1da56f41",
+        "name": "",
+        "topic": "demo/pir",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "ca267a0cd7e3f2aa",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 760,
+        "wires": [
+            [
+                "3f13d9f8e01037a7"
+            ]
+        ]
+    },
+    {
+        "id": "6293839b18b33e2b",
+        "type": "ui-chart",
+        "z": "5498495b1da56f41",
+        "group": "ed97e63fda72a3b2",
+        "name": "",
+        "label": "Ultrasound Sensor",
+        "order": 11,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "Time",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "Distance in cm",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "0",
+        "ymax": "100",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": false,
+        "removeOlder": 1,
+        "removeOlderUnit": "60",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": "3",
+        "height": "3",
+        "className": "",
+        "interpolation": "smooth",
+        "x": 450,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b7a49745088af257",
+        "type": "mqtt in",
+        "z": "5498495b1da56f41",
+        "name": "",
+        "topic": "demo/ultrasound",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "ca267a0cd7e3f2aa",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 820,
+        "wires": [
+            [
+                "6293839b18b33e2b"
+            ]
+        ]
+    },
+    {
+        "id": "1a4ff1a5d6c346a4",
+        "type": "ui-slider",
+        "z": "5498495b1da56f41",
+        "group": "ed97e63fda72a3b2",
+        "name": "",
+        "label": "Servo Position",
+        "tooltip": "",
+        "order": 12,
+        "width": "6",
+        "height": "1",
+        "passthru": false,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "always",
+        "showTicks": "false",
+        "min": 0,
+        "max": "180",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 220,
+        "y": 880,
+        "wires": [
+            [
+                "015c088be153245b"
+            ]
+        ]
+    },
+    {
+        "id": "015c088be153245b",
+        "type": "mqtt out",
+        "z": "5498495b1da56f41",
+        "name": "",
+        "topic": "demo/servo_control",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "ca267a0cd7e3f2aa",
+        "x": 410,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "024688742d1b76d6",
+        "type": "mqtt in",
+        "z": "5498495b1da56f41",
+        "name": "",
+        "topic": "demo/motor_control",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "ca267a0cd7e3f2aa",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 680,
+        "wires": [
+            [
+                "ae0d23e40707afc6"
+            ]
+        ]
+    }
+]

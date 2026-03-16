@@ -1,0 +1,33 @@
+################################################################################
+# Node-RED Stack or Compose
+################################################################################
+# docker stack deploy node-red --compose-file docker-compose-node-red.yml
+# docker-compose -f docker-compose-node-red.yml -p myNoderedProject up
+################################################################################
+
+services:
+  node-red:
+    image: nodered/node-red:4.1.6-22
+    restart: always
+    container_name: node-red-main
+    environment:
+      - TZ=Europe/Amsterdam
+    ports:
+      - "80:1880"
+    depends_on:
+      - mosquitto
+    volumes:
+      - ./node-red-data:/data
+      
+  mosquitto:
+    # https://hub.docker.com/_/eclipse-mosquitto
+    image: eclipse-mosquitto:alpine
+    restart: always
+    container_name: mosquitto
+    ports:
+      - 1883:1883
+    volumes:
+      - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+
