@@ -99,7 +99,7 @@ def writeLCD(sda_pin=20, sdc_pin=21, text="", delay = True):
 
 
 #https://www.elektronik-kompendium.de/sites/raspberry-pi/2703031.htm
-def readDTH22(data_pin=15, get_temp=True, get_hum=True):
+def readDHT22(data_pin=15, get_temp=True, get_hum=True):
     sensor = dht.DHT22(Pin(data_pin, Pin.IN, Pin.PULL_UP))
     sensor.measure()
     if get_temp and not get_hum:

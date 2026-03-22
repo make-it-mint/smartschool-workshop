@@ -1,148 +1,120 @@
-# SmartSchool Workshop - Einführung IoT mit MQTT in Python und MicroPython
-
-Dieses Repository beinhaltet den Programmcode für den SmartSchool Workshop
-
-## Notwendige Hardware:
-- Broker: Raspberry Pi 3B+/4B/400 mit Raspbian Bullseye
-- Clients: Raspberry Pi Pico W oder andere WLAN-fähige Mikrocontroller, auf denen MicroPython installiert werden kann.([Übersicht](https://micropython.org/download/))
-- Steckplatinen, Sensoren, Aktuatoren und weitere Bauteile für ausgewählte Clientfunktionen
-
-## Entwicklungsumgebung:
-In diesem Workshop wird die Online IDE Viper genutzt. https://viper-ide.org/# (Funktioniert nicht in Firefox)
-
-## Optionale Software:
-- MyMQTT: Eine App zum Verbinden mit MQTT Brokern für Android & iOS. Kann zum Testen verwendet werden, alternativ kann auch eine Webseite wie [MQTT.Cool](https://testclient-cloud.mqtt.cool/) oder ein zweites IoT Gerät verwendet werden.
-- Mosquitto (Installationsanleitung weiter unten): ein OpenSource MQTT Broker, der lokal installiert und betrieben werden kann
-- node-red (Installationsanleitung weiter unten): eine Low-Code Entwicklungsumgebung. Programmieren mit Flows und Erstellung eines Online-Dashboards
-- die Viper IDE kann auch lokal gebaut und auf einem eigenen Server gehostet werden (https://github.com/vshymanskyy/ViperIDE)
-
-Für den Broker wird hier eine Raspberry Pi 4B, mit Raspbian Bullseye installiert, verwendet.  
-Willst du keinen eigenen Broker einichten, kann auch ein öffentlicher Broker verwendet werden, wie ihn beispielsweise HiveMQ [hier](https://www.hivemq.com/public-mqtt-broker/) zur Verfügung stellt. Über Datenschutzrichtlinien im Vorfeld bitte selbst informieren.
-
-## Mikrocontroller - Firmware installieren
-Dieses Repo beinhaltet die Micropython Firmware für den Raspberry Pi Pico W. [Hier](https://micropython.org/download/rp2-pico-w/) kann überprüft werden, ob eine aktueller Version existiert.
-
-Um die Firmware auf den Pico zu installieren, verbinde den Pico per Mikro-USB Kabel mit dem Raspberry Pi. Ist kein MicroPython installiert, sollte er als USB-Laufwerk mit den beiden Dateien "INDEX.HTM" und "INFO_UF2.TXT" erscheinen.
-
-Falls der Mikrocontroller nicht erscheint, ist bereits eine MicroPython Version installiert und du kannst den Rest dieser Anleitung ignorieren.
-
-    [Optional]
-    Willst du die Firmware neu installieren?
-    Das kannst du machen, ohne die Dateien auf deinem Mikrocontroller zu löschen.  
-    - Ziehe das Mikro-USB Kabel wieder ab.
-    - Halte den "BOOTSEL" Knopf auf dem Pico W gedrückt und verbinde währenddessen das Mikro-USB Kabel wieder.
-    - Nach einigen Sekunden taucht der Mikrocontroller als USB Laufwerk auf.
-    - Der "BOOTSEL" Knopf kann wieder losgelassen werden.
-    - Folge dem Leitfaden weiter.
-
-Sollte keine MicroPython Firmware installiert sein, kopiere die Firmware Datei dieses repos das Laufwerk mit den beiden genannten Dateien.
-
-Jetzt warte en paar Sekunden und **_plopp_**, das Laufwerk sollte verschwunden sein. Der Mikrocontroller ist jetzt bereit für den Einsatz.
-
-Benutzt du einen anderen Mikrocontroller, befolge bitte die Anleitung zu deiner Hardware auf [dieser](https://micropython.org/download/) Seite.
-
-## Mikrocontroller - Verbinden in Viper
-
-Verbinde den Mikrocontroller mit dem Computer und klicke oben rechts in der Viper IDE auf das USB Symbol. Wähle aus der Liste, die sich öffnet den Mikrocontroller aus. Auf der linken Seite sollte nun ein Menü mit deinen Dateien erscheinen.
-
-## Code auf dem Mikrocontroller kopieren
-- Erstelle die folgenden Dateien und kopiere die Inhalte aus den gleichnamigen Dateien diese Repositories auf den Mikrocontroller:
-  - `iot_settings.py` -> Python Datei mit persönlichen Einstellungen
-  - `Thing.py` -> Python Datei, die die Verbdindung mit einem Broker und dem Internet automatisch übernimmt
-  - `things_collection.py` -> [Optional] beinhaltet Beispielprogramme und benötigt noch die folgenden in diesem Repository beinhalteten Bibliotheken, die genauso erstellt werden müssen:
-    - `mfrc522.py` (RFID Interface RC522)
-    - `lcd_api.py` (LCD Display)
-    - `machine_i2c_lcd.py` (LCD Display)
 
 
-- Erstelle im File Manager Menü den Ordner `umqtt` 
-  - innerhalb des Ordners die folgenden Dateien und kopiere die Inhalte aus den gleichnamigen Dateien diese Repositories in die Dateien:
-  - `simple.py` -> MQTT Bibliothek
-  - `robust.py`  -> MQTT Bibliothek
+# SmartSchool Dokumentation (IoT für die Bildungseinrichtungen)
+Felix Riedel <felix.riedel@make-it-mint.de>
+1.0, 14.Februar 2026
+
+Das Internet der Dinge ist in unserem Alltag allgegenwärtig. Smartphones, Bluetooth Kopfhörer, Glühbirnen, Türklingeln, Kühlschränke, Autos...
+So ziemlich alles kann heute als "smartes" Endgerät gekauft und genutzt werden.
+
+Das SmartSchool Projekt ist entstanden, um Schüler*innen und Lehrkräften einen einfachen Einstieg in die Erstellung eines eigenen Internets der Dinge (Internet of Things - IoT) zu ermöglichen. Das Projekt beinhaltet fertige Codebeispiele, Unterlagen für Projekte zum Selbstlernen und einen ausführlichen Leitfaden zum Aufsetzen eines eigenen IoT-Netzwerks.
+
+Alle Inhalte dieses Workshops können frei von Privatpersonen, öffentlichen und privaten Bildungseinrichtungen für eigene Projekte und den Einsatz im Unterricht verwendet werden.
+
+Für die Durchführung des Workshops sollte die Workshopleitung über grundlegendes Verständnis der Programmiersprache Python verfügen. Für das Aufsetzen der IoT-Netzes sind keine speziellen Kenntnisse notwendig, da der Ablauf hier ausführlich beshcrieben wird.
+
+Empfohlen ist der Workshop ab Klassenstufe 8.
+
+## Einleitung
+Das Aufsetzen eines IoT-Netzwerks und die Enticklung eigener "smarter" Geräte sind interdisziplinäre Aufgaben. Neben dem programmieren, werden elektrische Schaltungen aufgebaut, in denen die smarten Geräte Sensoren zum Erfassen von Messwerten und Aktuatoren zum Steuern von Maschinen und Geräten nutzen.
+
+Zur Kommunikation der Geräte untereinander wird in diesem Projekt MQTT (Message Queuing Telemetry Transport) verwendet. Ein offenes und leichtgewichtiges Protokoll zum Austausch von Daten über das Internet oder ein lokales Netzwerk.
+
+Als Programmiersprache wurde MicroPython gewählt. MQTT ist aber in allen Programmiersprachen nutzbar und kann beispielsweise auch mit Arduino Mikrocontrollern verwendet werden. Dafür müssen die Mikrocontroller aber WLAN-fähig sein.
+
+Gründe für die Auswahl von MicroPython sind
+
+* Filesystem auf den Mikrocontrollern
+* Python ist eine einfache und gut dokumentierte Programmiersprache zum Einstieg
+  * wird an Schulen als Sprache für die objektorientiert Programmieung im Lehrplan für informatik verwendet
+  * MicroPython und Python haben den gleichen Syntax
+* große Auswahl an Mikrocontrollern, auf denen MicroPython installiert werden kann ( https://micropython.org/download/ )
+* große Community und Vielzahl an Projekten online verfügbar
+* Python ist eine vielseitige Sprache -> "Python is Glue"
+
+**MQTT** ist ein Protokoll, das über das Internet eine Maschine zu Maschine (M2M) Kommunikation ermöglicht. Hierzu wird ein Broker verwendet, über den Maschinen Nachrichten austauschen. Dafür können öffentliche Online-Broker, eigene Online-Broker oder lokal Broker genutzt werden.
+
+## Erforderliche Materialien
+Der Workshop kann in unterschiedlichen Umfängen erfolgen. Welche Sensoren, Aktuatoren und elektrische Bauteile notwendig sind, muss dabei von der Workshopleitung entschieden werden. Eine Auflistung der vorbereiteten Projekte inklusive Handreichungen mit Anleitungen und Materiallisten ist (Beispiellinks zu Onlineshops inklusive) unter dem folgenden Link hinterlegt. .
+/TODO Nextcloudlink mit Passwort einfügen 
+
+### Mikrocontroller -> MicroPython & WLAN-fähig 
+
+Grundlegend notwendig sind eignetlich nur MicroPython-fähige Mikrocontroller mit WLAN. Die Beispiele sind für den **Raspberry Pi Pico W** entwickelt worden.
+
+### Raspberry Pi 4B/400/5/500
+Das Schulnetzwerk ist oft so konfiguriert, dass es die Kommunikation über MQTT mit Online-Brokern im Internet blockiert. Außerdem ist es möglich, dass das Schul-WLAN das Einloggen der Mikrocontroller verhindert. Deswegen ist es empfehlenswert ein lokales WLAN mit einem eigenen Broker aufzusetzen. Hierfür ist wird ein **Raspberry Pi 4B/400/5/500 mit mindestens 4 GB RAM** und einer **MicroSD Karte mit 16 GB Speicher** empfohlen.
+
+Dadurch ist das Aufsetzen eines lokalen Netzwerks und MQTT-Brokers möglich. Für die Kommunikation mit dem Internet kann zudem ein **Surfstick mit einer Daten SIM-Karte** verwendet werden. Hierfür wurde in diesem Projekt ein ZTE-Surfstick ausgewählt (Link weiter oben). Grund dafür ist, das der Surfstick es ermöglicht die SIM-Karte automatisch zu entsperren und somit nicht bei jedem Start des Surfsticks der PIN der SIM-Karte eingegeben werden muss. Ansonsten kann aber auch ein beliebiger anderer Surfstick verwendet werden. 
+
+## Eingesetzte Software
+Anleitungen zur Einrichtung sind im Abschnitt **Einrichtung** aufgeführt.
+
+### Thonny IDE (lokal)
+Thonny ist eine kostenlose integrierte Entwicklungsumgebung (IDE) für Python und MicroPython. [Downloadlink](https://thonny.org/).
+Sie läuft lokal auf dem eigenen Betriebssystem und ist als "portable Version" herunterladbar. Dadurch muss sie nicht installiert werden.
+
+Thonny ist während der Workshopvorbereitung zur Einrichtung der Mikrocontroller notwendig und kann auch während des Workshops zur Programmierung genutzt werden
+
+### Viper IDE (online)
+Ist eine Online IDE, die im Gegensatz zu Thonny über Syntax Highlighting und Code Vervollständigung verfügt. Außerdem muss für ihre Nutzung nicht Thonny auf jedem Computer installiert werden. https://viper-ide.org/
+
+### Mosquitto (MQTT Broker)
+Der MQTT-Broker, der für die M2M-Kommunikation genutzt wird
+
+### [optional] Node-Red
+Node-Red ist eine Low-Code Entwicklungsumgebung. In ihr können Prozesse und Dashboards ohne Programmierkenntnisse entwickelt werden.
+
+## Einrichtung
+Für den Betrieb des Brokers und Node-Red wird Docker verwendet. Das hat den Vorteil, dass beide Anwendungen auf jedem Betriebssystem installiert werden können und die Installation und das Einrichten mit nur wenigen Befehlen möglich ist.
+
+### Docker
+In diesem Workshop wird ein Raspberry Pi genutzt. Als Installationsanleitung sollte die offizielle Anleitung der Docker Webseite genutzt werden.
+[Docker Install Debian](https://docs.docker.com/engine/install/debian/) & [Docker Linux Postinstall](https://docs.docker.com/engine/install/linux-postinstall/)
+
+Der gesamte Vorgang sollte nur wenige Minuten dauern und kann alternativ auch für andere Betriebsysteme durchgeführt werden.
 
 
-Damit ist der Mikrocontroller für den Workshop vorbereitet.
 
+### Broker und Node-Red ( 5 min)
+Ist Docker fertig installiert muss der `smartschool` Ordner dieses Repositories auf den Raspberry Pi heruntergeladen werden. Der Ordner befindet sich in `rpi-files`. Am einfachsten ist es, wenn der `smartschool` Ordner direkt auf dem Desktop platziert wird, damit er leicht wiedergefunden wird.
 
+In diesem Ordner befinden sich Ordner mit Konfigurationsdateien für den MQTT Broker **mosquitto** und Node-Red **node-red-data**. Zusätzlich gibt es die `docker-compose.yml` Datei, mit der die Docker Images heruntergeladen und für die Nutzung konfiguriert werden.
 
-## [Optional] Installation des Brokers (RPi 4B)
-Die Installationsanleitung basiert auf einem Tutorial der Website [pimylifeup.com](https://pimylifeup.com/raspberry-pi-mosquitto-mqtt-server/)
+Auf dem Raspberry Pi müssen jetzt die Zugriffsrechte auf die gerade heruntergeladenen Ordner angepasst werden. Grund dafür ist, dass Docker auf diese Ordner zugreifen und sie verwenden wird. Das ist notwendig, damit die Beispiele und Konfigurationen, die erstellt im Vorfeld wurden auch von den Containern, die Docker erzeugt, nutzbar sind und nicht manuell erstellt werden müssen.
 
-Öffne ein Terminal und aktualisiere die verfügbaren Pakete  
-`sudo apt update`
+Öffne hierzu ein Terminal auf dem Desktop und navigiere in den `smartschool` Ordner indem du den folgenden Befehl in das Terminal eingibst.
 
-Installiere Broker und Client  
-`sudo apt install mosquitto mosquitto-clients`
+`cd Desktop/smartschool`
 
-Der Broker ermöglicht standardmäßig keine Kommunikation nach Außen. Um dies zu ermöglichen muss die Konfigurationsdatei des Broker angepasst werden.
+Der Pfad soll sich jetzt von `~/` zu `~/Desktop/smartschool` geändert haben.
 
-Öffne die Konfigurationsdatei  
-`sudo nano /etc/mosquitto/mosquitto.conf`
+Hier müssen jetzt die folgenden beiden Befehle ausgeführt werden, die den Node-Red und Mosquitto Containern Zugriff auf die jeweiligen Ordner erlauben.
 
-und füge die folgenden Zeilen am Ende der Datei ein  
-```
-listener 1883
-allow_anonymous true
-```
-Drücke STRG + O -> Enter -> STRG + X zum Speichern und Schließen der Datei.
+`sudo chown -R 1000:1000 ./node-red-data`
 
-Diese Zeilen legen fest, dass der Broker über Port 1883 mit externen Geräten kommuniziert und auch Geräte ohne Namen zulässt. (Für diesen Workshop notwendig)
+`sudo chown -R 1883:1883 ./mosquitto`
 
-Prüfe ob der Broker aktiv ist indem du den folgenden Befehl in der Konsole eingibst  
-`sudo systemctl status mosquitto.service`  
-Es sollte ein grünes "(is running)" und weiterer Text angezeigt werden.
+Als letztes werden die Container heruntergeladen und gestartet. Dafür muss lediglich die `Dockerfile` und `docker-compose.yml`Datei ausgeführt werden. Mit dem `Dockerfile` wird das Node-Red Containerimager heruntergeladen und vorkonfiguriert. Die `docker-compose.yml` lädt zusätzlich das Mosquitto Container Image herunter, startet die Container und konfiguriert sie.
+Gib die folgenden Befehle in die Konsole ein.
 
-Der Broker ist einsatzbereit.
+`docker build . -t custom-node-red`
 
-## [Optional] Installation von Node-Red auf dem Server (4B)
+`docker compose up -d`
 
-Node-Red wird in diesem Workshop verwendet, um ein Dashboard der "Dinge" über das Netzwerk bereitzustellen. Es wird auf dem gleichen Gerät installiert, wie der MQTT Broker.
-Node-Red stellt einen Installationswizard  und umfangreiches Infomaterial zur Verfügung, die [hier](https://nodered.org/docs/getting-started/raspberrypi) gefunden werden können.
+Das `-d` steht dabei für **detached**. Wird es weggelassen, kann im Terminal nachverfolgt werden, ob alles funktioniert. Sind die Container erfolgreich gestartet, kann durch drücken der **d** Taste der detach auch im Nachhinein durchgeführt werden.
 
-Öffne ein Terminal und führe die folgende Zeile aus:  
-`bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)`
+Wurde die Installationsanleitung der Docker Webseite korrekt befolgt, sollten die beiden Container jetzt starten und auch bei jedem Neustart des Raspberry Pi automatisch wieder starten.
 
-Die installation wird ein paar Minuten in Anspruch nehmen und du wirst aufgefordert einige Einstellung vorzunehmen.
+Zum Testen kann auf dem Raspberry Pi der Browser geöffnet und in die Suchleiste `http://localhost/` eingegeben werden. Hier sollte die Node-Red Oberfläche angezeigt werden und die lila MQTT Nodes sollten ein grünes **connected** anzeigen.
 
-Sobald sie abgeschlossen ist, muss noch die "Dashboard" Erweiterung installiert werden, damit die Elemente zur Erstellung grafischer Oberflächen verfügbar sind. Im Terminal folgenden Befehl ausführen:  
-`npm install node-red-dashboard`
+Das Node-Red Dashboard selbst ist unter `http://localhost/dashboard/demo` erreichbar. Die Testumgebung ist aus dem gesamten lokalen Netzwerk erreichbar, um darauf zuzugreifen muss `localhost` durch die IP Adresse des Raspberry Pi ersetzt werden.
 
-Im Browser kann jetzt sowohl das Interface zum Erstellen von Workflows, als auch das Dashboard geöffnet werden. Node-Red verwendet standardmäßig Port 1880.
-Öffne einen Browser und gib die folgende url ein:
+Die IP-Adresse kann im Terminal durch den Befehl `hostname -I` herausgefunden werden, oder durch die WLAN-Einstellungen des Raspi.
 
-http://localhost:1880      <- Entwicklungsumgebung für Flows  
-http://localhost:1880/ui      <- Webseite mit dem Dashboard
+>[!NOTE]
+> Auf Grund von Netzwerkeinstellungen im Schulnetzwerk kann es sein, dass weder Node-Red, noch der Mosquitto Broker für andere Netzwerkteilnehmer:innen gesehen werden. Deswegen kann es notwendig sein, dass der Raspberry Pi ein eigenes Netzwerk aufbaut, in dass sich die Teilnehmer:innen des Workshops einloggen.
 
-#### Server von Netzwerkgeräten erreichen
-Um diese Seiten von einem anderen Gerät im Netzerk zu erreichen muss die IP-Adresse des Servers ermittelt und für "localhost" ersetzt werden.
+# TODO
+RaspAP in Docker Compose aufnehmen. 
 
-Die IP-Adresse des Servers kann durch Eingabe des folgenden Befehls in das Terminal auf dem Raspberry Pi ermittelt werden:  
-`ifconfig -a`  
-In der Ausgabe sollte eine Adresse der Form "192.168.0.110" als IPv4 Adresse erscheinen. Diese Adresse kann für den "localhost" eingesetzt werden.  
-Beispiel: http://192.168.0.110:1880
-
-#### Node-Red als Service einrichten
-Damit Node-Red beim Starten des Raspberry Pi ebenfalls immer gestartet wird, muss es als Service eingerichtet werden.
-Hierfür den folgenden Befehl im Terminal eingeben:  
-`sudo systemctl enable nodered.service`  
-Soll der Service deaktiviert werden, folgenden Befehl eingeben:  
-`sudo systemctl disable nodered.service`
-
-
-#### Entwicklungsumgebung aufrufen
-
-
-Hier können Flow angelegt erstellt werden.
-Oben links in dem Fenster befindet sich ein Symbol aus drei horizontalen Strichen.  
-- Beim Anklicken öffnet sich ein Menü. Hier muss das Feld **Import** ausgewählt werden.  
-- Beim jetzt geöffneten Fenster den Button **Datei für Import auswählen** anklicken und die Workshopflows auswählen.
-- Die Workshopflows sind in diesem Repository im Ordner **node_red** als Datei **flows.json** enthalten.
-- Hat alles funktioniert, oben Links auf den großen roten **Übernahme(deploy)** Button klicken.
-- Unter `localhost:1880/ui` ist jetzt das Workshop-Dashboard sichtbar.
-
-
-## Workshopunterlagen
-Alle weiteren Anleitungsschritte befinden sich in den Workshopunterlagen.
-
-[Downloadlink](https://nextcloud.mintorinnen.de/s/4bByDmG4WDnMAmA)  
-SmartSchool2024!
