@@ -77,13 +77,17 @@ Der gesamte Vorgang sollte nur wenige Minuten dauern und kann alternativ auch f�
 
 
 ### Broker und Node-Red ( 5 min)
-Ist Docker fertig installiert muss der **smartschool** Ordner dieses Repositories auf den Raspberry Pi heruntergeladen werden. Der Ordner befindet sich in `rpi-files`. Am einfachsten ist es, wenn der Ordner direkt auf dem Desktop platziert wird, damit er leicht wiedergefunden wird.
+Ist Docker fertig installiert muss der `smartschool` Ordner dieses Repositories auf den Raspberry Pi heruntergeladen werden. Der Ordner befindet sich in `rpi-files`. Am einfachsten ist es, wenn der `smartschool` Ordner direkt auf dem Desktop platziert wird, damit er leicht wiedergefunden wird.
 
 In diesem Ordner befinden sich Ordner mit Konfigurationsdateien für den MQTT Broker **mosquitto** und Node-Red **node-red-data**. Zusätzlich gibt es die `docker-compose.yml` Datei, mit der die Docker Images heruntergeladen und für die Nutzung konfiguriert werden.
 
-Auf dem Raspberry Pi müssen jetzt die Zugriffsrechte auf die gerade heruntergeladenen Ordner angepasst werden. Grund dafür ist, dass Docker auf diese Ordner zugreifen und sie verwenden wird. Das ist notwendig, damit die Beispiele und Konfigurationen, die erstellt IM Vorfeld wurden auch von den Containern, die Docker erzeugt, nutzbar sind und nicht manuell erstellt werden müssen.
+Auf dem Raspberry Pi müssen jetzt die Zugriffsrechte auf die gerade heruntergeladenen Ordner angepasst werden. Grund dafür ist, dass Docker auf diese Ordner zugreifen und sie verwenden wird. Das ist notwendig, damit die Beispiele und Konfigurationen, die erstellt im Vorfeld wurden auch von den Containern, die Docker erzeugt, nutzbar sind und nicht manuell erstellt werden müssen.
 
-Öffne dafür den **smartschool** Ordner auf dem Raspberry Pi. Klicke mit der **rechten Maustaste** in das offene Fenster und wähle **Run in Terminal** aus. Es öffnet sich jetzt ein Terminal in dem aktuellen Ordner. Alternativ kann auch ein Terminal geöffnet werden und selbst in den Ordner navigiert werden.
+Öffne hierzu ein Terminal auf dem Desktop und navigiere in den `smartschool` Ordner indem du den folgenden Befehl in das Terminal eingibst.
+
+`cd Desktop/smartschool`
+
+Der Pfad soll sich jetzt von `~/` zu `~/Desktop/smartschool` geändert haben.
 
 Hier müssen jetzt die folgenden beiden Befehle ausgeführt werden, die den Node-Red und Mosquitto Containern Zugriff auf die jeweiligen Ordner erlauben.
 
@@ -91,7 +95,10 @@ Hier müssen jetzt die folgenden beiden Befehle ausgeführt werden, die den Node
 
 `sudo chown -R 1883:1883 ./mosquitto`
 
-Als letztes werden die Container gestartet. Dafür muss lediglich die `docker-compose.yml`Datei ausgeführt werden. dafür den folgenden Befehl ins Terminal eingeben.
+Als letztes werden die Container heruntergeladen und gestartet. Dafür muss lediglich die `Dockerfile` und `docker-compose.yml`Datei ausgeführt werden. Mit dem `Dockerfile` wird das Node-Red Containerimager heruntergeladen und vorkonfiguriert. Die `docker-compose.yml` lädt zusätzlich das Mosquitto Container Image herunter, startet die Container und konfiguriert sie.
+Gib die folgenden Befehle in die Konsole ein.
+
+`docker build . -t custom-node-red`
 
 `docker compose up -d`
 
