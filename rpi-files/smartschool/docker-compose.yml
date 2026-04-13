@@ -69,7 +69,7 @@ services:
       - RASPAP_COUNTRY=DE
       - RASPAP_WEBGUI_USER=admin
       - RASPAP_WEBGUI_PASS=secret
-      #t - RASPAP_WEBGUI_PORT=8081
+      - RASPAP_WEBGUI_PORT=8081
     cap_add:
       - SYS_ADMIN
     volumes:
