@@ -22,6 +22,10 @@ sudo apt update || true
 #Downloading and installing docker
 sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-#configuring os for docker
+#making install_packages.sh executable
+sudo chmod +x install_packages.sh
+
+#adding user to docker group
 sudo usermod -aG docker $USER
+#reboot to make sure user is in group
 sudo reboot
