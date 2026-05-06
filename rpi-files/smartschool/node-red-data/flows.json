@@ -19,7 +19,7 @@
         "id": "ca267a0cd7e3f2aa",
         "type": "mqtt-broker",
         "name": "",
-        "broker": "iot.make-it-mint.de",
+        "broker": "mosquitto",
         "port": "1883",
         "tls": "",
         "clientid": "",
