@@ -19,7 +19,7 @@
         "id": "ca267a0cd7e3f2aa",
         "type": "mqtt-broker",
         "name": "",
-        "broker": "iot.make-it-mint.de",
+        "broker": "mosquitto",
         "port": "1883",
         "tls": "",
         "clientid": "",
@@ -185,6 +185,16 @@
         "className": "",
         "visible": "true",
         "disabled": "false"
+    },
+    {
+        "id": "ebfc8d091029dd9f",
+        "type": "MySQLdatabase",
+        "name": "database",
+        "host": "db",
+        "port": "3306",
+        "db": "your_database_name",
+        "tz": "",
+        "charset": "UTF8"
     },
     {
         "id": "c69f6a2e6c13e913",
@@ -981,6 +991,123 @@
         "wires": [
             [
                 "ae0d23e40707afc6"
+            ]
+        ]
+    },
+    {
+        "id": "c50199e1c483c95b",
+        "type": "mysql",
+        "z": "5498495b1da56f41",
+        "mydb": "ebfc8d091029dd9f",
+        "name": "my_database",
+        "x": 980,
+        "y": 360,
+        "wires": [
+            [
+                "c4b66ecdf6655a23"
+            ]
+        ]
+    },
+    {
+        "id": "57a65b5057992f8f",
+        "type": "inject",
+        "z": "5498495b1da56f41",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "CREATE TABLE Persons (   PersonID int PRIMARY KEY,   LastName varchar(255) NOT NULL,   FirstName varchar(255),   Address varchar(255),   City varchar(255) );",
+        "payload": "",
+        "payloadType": "date",
+        "x": 680,
+        "y": 360,
+        "wires": [
+            [
+                "c50199e1c483c95b"
+            ]
+        ]
+    },
+    {
+        "id": "c4b66ecdf6655a23",
+        "type": "debug",
+        "z": "5498495b1da56f41",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1240,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "115b62e91d9c76b6",
+        "type": "inject",
+        "z": "5498495b1da56f41",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "INSERT INTO Persons (PersonID, FirstName, LastName, Address, City) VALUES (123, 'Felix', 'Stuff', 'abc', 'def');",
+        "payload": "",
+        "payloadType": "date",
+        "x": 680,
+        "y": 460,
+        "wires": [
+            [
+                "c50199e1c483c95b"
+            ]
+        ]
+    },
+    {
+        "id": "ad92adaac6d68dfd",
+        "type": "inject",
+        "z": "5498495b1da56f41",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "SELECT * FROM Persons;",
+        "payload": "",
+        "payloadType": "date",
+        "x": 680,
+        "y": 540,
+        "wires": [
+            [
+                "c50199e1c483c95b"
             ]
         ]
     }
