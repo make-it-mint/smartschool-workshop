@@ -4,7 +4,7 @@
 Felix Riedel <felix.riedel@make-it-mint.de>
 1.0, 14.Februar 2026
 
-Getestet mit Raspberry Pi 4B(8GB) und Raspbery Pi 400, Debian Trixie 64-bit Desktop Version.
+Getestet mit Raspberry Pi 4B(8GB) und Raspberry Pi 400, Debian Trixie 64-bit Desktop Version.
 
 ## Einleitung 
 Das Internet der Dinge ist in unserem Alltag allgegenwärtig. Smartphones, Bluetooth Kopfhörer, Glühbirnen, Türklingeln, Kühlschränke, Autos...
@@ -75,6 +75,12 @@ Mit RaspAP wird der Raspberry Pi zu einem eigenen Accesspoint. Schulnetzwerke sp
 ### [optional] Node-Red `Installation mit Docker`
 Node-Red ist eine Low-Code Entwicklungsumgebung. In ihr können Prozesse und Dashboards ohne Programmierkenntnisse entwickelt werden. Der Node-Red Container dieses Repositories beinhaltet ein Beispieldashboard für Demo-Zwecke, das für einen ersten Test genutzt werden kann.
 
+### [optional] MySQL `Installation mit Docker`
+MySQL ist ein von Oracle entwickltes kostenlose OpenSource System für relationale Datenbanken.
+
+### [optional] phpMyAdmin `Installation mit Docker`
+Kostenlose OpenSource Software, die eine grafische Nuzteroberfläche  zur Verwaltung von MySQL Datenbanken im Browser zur Verfügung stellt.
+
 ## Einrichtung
 
 Für das Einrichten der Software werden bash-Skripte zur Verfügung gestellt, die fast den gesamten Prozess automatisieren. Im Folgenden werden die notwendigen Schritte der Einrichtung beschrieben. Es wird von einem Raspberry Pi mit Desktop ausgegangen. Solltest du die Server-Version ohne Desktopumgebung nutzen, passe die Schritte entsprechend an.
@@ -94,6 +100,15 @@ Mit RaspAP wird der Raspberry Pi zu einem AccessPoint. Docker konfiguriert diese
 Du kannst diese Werte auch später verändern und den Accesspoint neu starten. Außerdem kannst du in dieser datei immer nachschauen, solltest du die Zugangsdaten vergessen haben.
 
 Speichere die Änderungen und schließe die `docker-compose.yml` Datei wieder.
+
+### Konfiguration der MySQL Datenbank
+Genauso wie der Accesspoint, wird die MySQL Datenbank über die `docker-compose.yml` Datei im `smartschool` Ordner konfiguriert. Die folgenden Were rechts vom `=` Zeichen können hierfür angepasst werden:
+- MYSQL_ROOT_PASSWORD: your_root_password
+- MYSQL_DATABASE: your_database_name
+- MYSQL_USER: your_username
+- MYSQL_PASSWORD: your_password
+
+In der Node-Red Demo ist eine beispielhafte Datenbankverbindung mit den hier vorhandenen Standardwerten beinhaltet. Passe die Werte der `database` Node entsprechende deiner angepassten Einstellungen an, damit die Verbindung hergestellt werden kann.
 
 ### Installation vorbereiten
 Zur Einrichtung werden wie bereits beschrieben, zwei bash-Skripte verwendet. `install_packages.sh` und `setup_system.sh`. Die Aufteilung ist notwendig, da dass System zwischendurch neu gestartet werden muss, damit eine bestimmte Änderung übernommen wird.
@@ -129,6 +144,7 @@ Das `setup_system.sh` Skript führt die folgenden Aktivitäten durch:
 - Node-Red Entwicklungsumgebung: `http://localhost/`
 - Node-Red Dashboard: `http://localhost/dashboard/demo`
 - RaspAP Webinterface: `http://localhost:8081`
+- phpMyAdmin: `http://localhost:8888`
 
 
 Haben die lila-farbenen Nodes in der Node-Red Entwicklungsumgebung `grüne` Kästechen unter sich, ist auf der Mosquitto-Broker erfolgreich eingerichtet. Innerhalb deines Netzwerks können IoT-Geräte jetzt miteinander kommunizieren. Starte den Raspberry Pi noch ein letztes Mal neu, damit das WLAN-Interface auch sicher für dein Netzwerk freigegeben ist.
