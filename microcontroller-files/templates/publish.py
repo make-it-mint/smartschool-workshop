@@ -1,5 +1,5 @@
 from iot_settings import *
-from Thing import Thing
+from thing import Thing
 from random import random
 
 #this class inherits all the functionalities of the "Thing" class. You can override specific methods according to your requirements

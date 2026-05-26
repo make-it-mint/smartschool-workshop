@@ -7,8 +7,8 @@ import neopixel
 
 
 
-def controlLed(led_pin=16,set_to=-1):
-    my_pin = Pin(led_pin, Pin.OUT)
+def controlPin(pin=16,set_to=-1):
+    my_pin = Pin(pin, Pin.OUT)
     if set_to == -1:
         my_pin.toggle()
     elif set_to == 0:
