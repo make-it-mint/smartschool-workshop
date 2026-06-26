@@ -6,6 +6,9 @@ Felix Riedel <felix.riedel@make-it-mint.de>
 
 Getestet mit Raspberry Pi 4B(8GB) und Raspberry Pi 400, Debian Trixie 64-bit Desktop Version.
 
+Die Unterlagen für den Workshop werden [hier](https://nextcloud.mintorinnen.de/s/K4Cg5SbmCTbWWMa) veröffentlicht.  
+Passwort: SmartSchool!
+
 ## Einleitung 
 Das Internet der Dinge ist in unserem Alltag allgegenwärtig. Smartphones, Bluetooth Kopfhörer, Glühbirnen, Türklingeln, Kühlschränke, Autos...
 So ziemlich alles kann heute als "smartes" Endgerät gekauft und genutzt werden.
