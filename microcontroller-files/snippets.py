@@ -4,6 +4,7 @@ from machine_i2c_lcd import I2cLcd
 import dht
 import math
 import neopixel
+from mfrc522 import MFRC522
 
 
 

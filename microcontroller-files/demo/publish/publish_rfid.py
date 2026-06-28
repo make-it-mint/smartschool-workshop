@@ -10,7 +10,7 @@ class CustomThing(Thing):
     #################################################### This is where your custom code goes ######################################
     #overriding the publish method
     def publish(self, client):
-        client.publish("demo/ldr", f"{readRFID()}")
+        client.publish("demo/rfid", f"{readRFID()}")
 
     ###############################################################################################################################
 
